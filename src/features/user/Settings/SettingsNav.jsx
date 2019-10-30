@@ -1,5 +1,5 @@
 import React,{Fragment} from 'react'
-import { Menu, Header, Grid } from 'semantic-ui-react'
+import { Menu, Header } from 'semantic-ui-react'
 import { NavLink } from 'react-router-dom'
 
 const SettingsNav = () => {
