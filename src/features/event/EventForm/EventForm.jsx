@@ -1,3 +1,4 @@
+/*global google*/
 import React, { Component } from 'react';
 import { Form, Segment, Button, Grid, Header } from 'semantic-ui-react';
 import { reduxForm, Field } from 'redux-form';
@@ -10,6 +11,8 @@ import TextInput from '../../../app/common/form/TextInput';
 import TextArea from '../../../app/common/form/TextArea';
 import SelectInput from '../../../app/common/form/SelectInput';
 import DateInput from '../../../app/common/form/DateInput';
+import PlaceInput from '../../../app/common/form/PlaceInput';
+import {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
 
 const mapState = (state, ownProps) => {
     const eventId = ownProps.match.params.id;
@@ -52,27 +55,57 @@ const validate = combineValidators({
 });
   
 class EventForm extends Component {
-    
+    state = {
+      cityLatLng: {},
+      venueLatLng: {}
+    }
+
     onFormSubmit = values =>{
-        // values.date = moment(values.date).format();
-        if (this.props.initialValues.id) {
-            this.props.updateEvent(values);
-            // this.props.history.goBack();
-            this.props.history.push(`/events/${this.props.initialValues.id}`);
-          } else{
-            const newEvent = {
-                ...values,
-                id: cuid(),
-                hostPhotoURL: '/assets/user.png',
-                hostedBy: 'Bob'
-            };
-            this.props.createEvent(newEvent);
-            this.props.history.push(`/events`);
-            //this.props.history.push(`/events/${newEvent.id})`);
-            //errors occured --- can not read attendees of undefine
-        }
-        
+      values.venueLatLng = this.state.venueLatLng;
+      // values.date = moment(values.date).format();
+      if (this.props.initialValues.id) {
+          this.props.updateEvent(values);
+          // this.props.history.goBack();
+          this.props.history.push(`/events/${this.props.initialValues.id}`);
+        } else{
+          const newEvent = {
+              ...values,
+              id: cuid(),
+              hostPhotoURL: '/assets/user.png',
+              hostedBy: 'Bob'
+          };
+          this.props.createEvent(newEvent);
+          this.props.history.push(`/events`);
+          //this.props.history.push(`/events/${newEvent.id})`);
+          //errors occured --- can not read attendees of undefine
+      }
     };
+
+    handleCitySelect = (selectedCity) => {
+      geocodeByAddress(selectedCity)
+        .then((results) => getLatLng(results[0]))
+        .then(latlng => {
+          this.setState({
+            cityLatLng: latlng
+          })
+        })
+        .then(() => {
+          this.props.change('city', selectedCity)
+        })
+    }
+
+    handleVenueSelect = (selectedVenue) => {
+      geocodeByAddress(selectedVenue)
+        .then((results) => getLatLng(results[0]))
+        .then(latlng => {
+          this.setState({
+            venueLatLng: latlng
+          })
+        })
+        .then(() => {
+          this.props.change('venue', selectedVenue)
+        })
+    }
    
     render() {
         const {history, initialValues, invalid, submitting, pristine} = this.props;
@@ -103,8 +136,29 @@ class EventForm extends Component {
                     placeholder="Tell us about your event"
                   />
                   <Header sub color="teal" content="Event Location Details" />
-                  <Field name="city" type="text" component={TextInput} placeholder="Event City" />
-                  <Field name="venue" type="text" component={TextInput} placeholder="Event Venue" />
+                  <Field 
+                    name="city" 
+                    type="text" 
+                    component={PlaceInput}
+                    options={{types: ['(cities)']}} 
+                    onSelect = {this.handleCitySelect}
+                    placeholder="Event City" 
+                    
+                  />
+
+                  <Field 
+                    name="venue" 
+                    type="text" 
+                    component={PlaceInput}
+                    options={{
+                      location: new google.maps.LatLng(this.state.cityLatLng),
+                      radius: 1000,
+                      type:['establishment']
+                    }} 
+                    placeholder="Event Venue" 
+                    onSelect={this.handleVenueSelect}
+                  />
+
                   <Field
                     name="date"
                     type="text"
