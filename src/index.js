@@ -9,10 +9,10 @@ import {Provider} from 'react-redux'
 import ReduxToastr from 'react-redux-toastr';
 import { configureStore } from './app/stroe/configureStore';
 import ScrollToTop from './app/common/util/ScrollToTop'
-import { loadEvents } from './features/event/eventActions';
+// import { loadEvents } from './features/event/eventActions';
 
 const store = configureStore();
-store.dispatch(loadEvents())
+// store.dispatch(loadEvents())
 
 const rootEl = document.getElementById('root');
 
