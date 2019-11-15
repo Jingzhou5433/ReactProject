@@ -6,6 +6,6 @@ const delay = (ms) => {
 
 export const fetchSampleData = () => {
     return delay(1000).then(() => {
-        return Promise.resolve(sampleData);
+        return Promise.resolve(sampleData)
     })
 }

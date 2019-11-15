@@ -11,8 +11,6 @@ class TestPlaceInput extends React.Component {
     this.setState({ address });
   };
 
-  
-
   render() {
     const {selectAddress} = this.props;
     return (
@@ -57,7 +55,5 @@ class TestPlaceInput extends React.Component {
     );
   }
 }
-
-
 
 export default TestPlaceInput;

@@ -1,5 +1,5 @@
-import { createReducer } from "../../app/common/util/reducerUtils"
-import { ASYNC_ACTION_START, ASYNC_ACTION_FINISH, ASYNC_ACTION_ERROR } from "./asyncConstants"
+import { createReducer } from "../../app/common/util/reducerUtils";
+import { ASYNC_ACTION_START, ASYNC_ACTION_FINISH, ASYNC_ACTION_ERROR } from "./asyncConstants";
 
 const initialState = {
     loading: false,
@@ -14,7 +14,7 @@ const asyncActionStarted = (state, payload) => {
     }
 }
 
-const asyncActionFished = (state) => {
+const asyncActionFinished = (state) => {
     return {
         ...state,
         loading: false,
@@ -31,7 +31,7 @@ const asyncActionError = (state) => {
 }
 
 export default createReducer(initialState, {
-    [ASYNC_ACTION_START] : asyncActionStarted,
-    [ASYNC_ACTION_FINISH]: asyncActionFished,
+    [ASYNC_ACTION_START]: asyncActionStarted,
+    [ASYNC_ACTION_FINISH]: asyncActionFinished,
     [ASYNC_ACTION_ERROR]: asyncActionError
 })
