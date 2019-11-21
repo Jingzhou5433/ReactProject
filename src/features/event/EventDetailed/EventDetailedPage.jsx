@@ -14,7 +14,6 @@ const mapState = (state, ownProps) => {
     if (eventId && state.events.length > 0) {
         event = state.events.filter(event => event.id === eventId)[0]
     }
-
     return {
         event
     }

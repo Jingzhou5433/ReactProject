@@ -43,16 +43,16 @@ const PhotosPage = ({uploadProfileImage, photos, profile, deletePhoto, setMainPh
         }
     }, [files]);
 
-const handleUploadImage = async() => {
-    try{
-         await uploadProfileImage(image, files[0].name);
-        handleCancelCrop();
-        toastr.success('Success','Photo has been uploaded');
-    }catch(error){
-        console.log(error);
-        toastr.error('Oops','Something went wrong');
-    }
-};
+    const handleUploadImage = async() => {
+        try{
+            await uploadProfileImage(image, files[0].name);
+            handleCancelCrop();
+            toastr.success('Success','Photo has been uploaded');
+        }catch(error){
+            console.log(error);
+            toastr.error('Oops','Something went wrong');
+        }
+    };
 
     const handleCancelCrop = () => {
         setFiles([]);

@@ -6,7 +6,7 @@ import {format, parseISO} from 'date-fns';
 const eventImageStyle = {
   filter: 'brightness(50%)'
 };
-
+ 
 const eventImageTextStyle = {
   position: 'absolute',
   bottom: '5%',

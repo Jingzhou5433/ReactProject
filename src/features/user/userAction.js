@@ -82,8 +82,7 @@ export const deletePhoto = (photo) =>
 export const setMainPhoto = (photo) =>
     async (dispatch, getState, {getFirebase}) => {
         const firebase = getFirebase();
-        
-        const user = firebase.auth().currentUser;
+        //const user = firebase.auth().currentUser;
         try {
             return await firebase.updateProfile({    
                 photoURL: photo.url
