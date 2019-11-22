@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Segment, Button, Label, Divider } from 'semantic-ui-react';
 import { reduxForm, Field } from 'redux-form';
 import TextInput from '../../../app/common/form/TextInput';
-import { login, socialLogin } from '../authActions';
+import { login, socialLogin } from '../../auth/authActions';
 import { connect } from 'react-redux';
 import SocialLogin from '../SocialLogin/SocialLogin';
 
