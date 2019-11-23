@@ -52,6 +52,7 @@ export const cancelToggle = (cancelled, eventId) => async (
           cancelled: cancelled
         })
     });
+   
   } catch (error) {
     console.log(error);
   }

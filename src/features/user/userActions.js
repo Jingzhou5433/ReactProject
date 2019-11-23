@@ -20,7 +20,7 @@ export const uploadProfileImage = (file, fileName) =>
         const firebase = getFirebase();
         const firestore = getFirestore();
         const user = firebase.auth().currentUser;
-        const path = `${user.uid}/user_images`;
+        const path = `${user.uid}/user_imagee`;
         const options = {
             name: imageName
         };
@@ -63,7 +63,7 @@ export const deletePhoto = (photo) =>
         const firestore = getFirestore();
         const user = firebase.auth().currentUser;
         try {
-            await firebase.deleteFile(`${user.uid}/user_images/${photo.name}`);
+            await firebase.deleteFile(`${user.uid}/user_imagee/${photo.name}`);
             await firestore.delete({
                 collection: 'users',
                 doc: user.uid,

@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
-import { Segment, Image, Item, Header, Button } from 'semantic-ui-react';
+import { Segment, Image, Item, Header, Button} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 
 const eventImageStyle = {
-  filter: 'brightness(30%)'
+  filter: 'brightness(60%)'
 };
 
 const eventImageTextStyle = {
@@ -31,11 +31,16 @@ const EventDetailedHeader = ({
           fluid
           style={eventImageStyle}
         />
-
+        {event.cancelled && (
+                  <div class="ui red top left attached label" >
+                    This event has been cancelled
+                    </div>
+                )}
         <Segment basic style={eventImageTextStyle}>
           <Item.Group>
             <Item>
               <Item.Content>
+              
                 <Header
                   size='huge'
                   content={event.title}
@@ -66,7 +71,7 @@ const EventDetailedHeader = ({
                 Cancel My Place
               </Button>
             ) : (
-              <Button onClick={() => goingToEvent(event)} color='teal'>
+              <Button disabled={event.cancelled} onClick={() => goingToEvent(event)} color='teal'>
                 JOIN THIS EVENT
               </Button>
             )}

@@ -8,12 +8,13 @@ const UserDetailedDescription = ({ profile }) => {
       <Segment>
         <Grid columns={2}>
           <Grid.Column width={10}>
-            <Header icon='smile' content='About Display Name' />
+            <Header icon='smile' content='About me' />
             <p>
-              I am a: <strong>{profile.occupation || 'tbn'}</strong>
+              I am {profile.occupation && "aeiouAEIOU".indexOf(profile.occupation[0]) > -1 ? 'an' : 'a'}: 
+              <strong>{profile.occupation || ' '}</strong>
             </p>
             <p>
-              Originally from <strong>{profile.origin || 'tbn'}</strong>
+              Originally from :<strong>{profile.origin || ' '}</strong>
             </p>
             <p>
               Member Since:{' '}
