@@ -10,11 +10,12 @@ const UserDetailedDescription = ({ profile }) => {
           <Grid.Column width={10}>
             <Header icon='smile' content='About me' />
             <p>
-              I am {profile.occupation && "aeiouAEIOU".indexOf(profile.occupation[0]) > -1 ? 'an' : 'a'}: 
+              I am {profile.occupation && "aeiouAEIOU".indexOf(profile.occupation[0]) > -1 ? 'an' : 'a'}:{' '} 
               <strong>{profile.occupation || ' '}</strong>
             </p>
             <p>
-              Originally from :<strong>{profile.origin || ' '}</strong>
+              Originally from :{' '}
+              <strong>{profile.origin || ' '}</strong>
             </p>
             <p>
               Member Since:{' '}
@@ -22,7 +23,12 @@ const UserDetailedDescription = ({ profile }) => {
                 {profile.createdAt && format(profile.createdAt.toDate(), 'dd LLL yyyy')}
               </strong>
             </p>
-            <p>{profile.description}</p>
+            <p>
+              Description: {' '}
+              <strong>
+              {profile.about}
+              </strong>
+              </p>
           </Grid.Column>
           <Grid.Column width={6}>
             <Header icon='heart outline' content='Interests' />
