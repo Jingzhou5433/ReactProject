@@ -72,7 +72,7 @@ class EventDetailedChat extends Component {
 
 
             {comment.childNodes && comment.childNodes.map(child => (
-              <Comment.Group>
+              <Comment.Group key={child.id}>
               <Comment>
               <Comment.Avatar src={ child.photoURL || '/assets/user.png'} />
               <Comment.Content>
