@@ -17,6 +17,7 @@ const eventImageTextStyle = {
 };
 
 const EventDetailedHeader = ({
+  loading,
   event,
   isHost,
   isGoing,
@@ -71,7 +72,7 @@ const EventDetailedHeader = ({
                 Cancel My Place
               </Button>
             ) : (
-              <Button disabled={event.cancelled} onClick={() => goingToEvent(event)} color='teal'>
+              <Button loading={loading} disabled={event.cancelled} onClick={() => goingToEvent(event)} color='teal'>
                 JOIN THIS EVENT
               </Button>
             )}

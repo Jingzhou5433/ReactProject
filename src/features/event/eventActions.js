@@ -13,6 +13,7 @@ export const createEvent = event => {
     const photoURL = getState().firebase.profile.photoURL;
     const newEvent = createNewEvent(user, photoURL, event);
     try {
+      
       let createdEvent = await firestore.add('events', newEvent);
       await firestore.set(`event_attendee/${createdEvent.id}_${user.uid}`, {
         eventId: createdEvent.id,
@@ -29,12 +30,40 @@ export const createEvent = event => {
 };
 
 export const updateEvent = event => {
-  return async (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
+  return async (dispatch, getState) => {
+    const firestore = firebase.firestore();
     try {
-      await firestore.update(`events/${event.id}`, event);
+      dispatch(asyncActionStart());
+      let eventDocRef = firestore.collection('events').doc(event.id);
+      let dateEqual = getState().firestore.ordered.events[0].date.isEqual(event.date);
+      if (!dateEqual){
+        let batch = firestore.batch();
+        batch.update(eventDocRef, event);
+
+        let eventAttendeeRef = firestore.collection('event_attendee');
+        let eventAttendeeQuery = await eventAttendeeRef.where('eventId', '==', event.id);
+        let eventAttendeeQuerySnap = await eventAttendeeQuery.get();
+
+        for(let i=0; i < eventAttendeeQuerySnap.docs.length; i++){
+          let eventAttendeeDocRef = await firestore
+            .collection('event_attendee')
+            .doc(eventAttendeeQuerySnap.docs[i].id);
+
+          batch.update(eventAttendeeDocRef, {
+            eventDate: event.date
+          })
+        }
+
+        await batch.commit();
+        
+      }else{
+        await eventDocRef.update(event);
+      }
+      dispatch(asyncActionFinish());
+      //await firestore.update(`events/${event.id}`, event);
       toastr.success('Success!', 'Event has been updated');
     } catch (error) {
+      dispatch(asyncActionError());
       toastr.error('Oops', 'Something went wrong');
     }
   };
