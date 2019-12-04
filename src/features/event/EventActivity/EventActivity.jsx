@@ -17,4 +17,5 @@ const EventActivity = ({activities,contextRef}) => {
     )
 }
 
+
 export default EventActivity

@@ -75,3 +75,39 @@ exports.cancelActivity = functions.firestore
         return console.log('Error adding activity', err);
       });
   }); 
+
+  exports.reactivatedEvent = functions.firestore
+  .document('events/{eventId}')
+  .onUpdate((event, context) => {
+    let updatedEvent = event.after.data();
+    let previousEventData = event.before.data();
+    console.log({ event });
+    console.log({ context });
+    console.log({ updatedEvent });
+    console.log({ previousEventData });
+
+    if (
+      updatedEvent.cancelled ||
+      updatedEvent.cancelled === previousEventData.cancelled
+    )
+      return false;
+
+    const activity = newActivity(
+      'reactivatedEvent',
+      updatedEvent,
+      context.params.eventId
+    );
+
+    console.log({ activity });
+
+    return admin
+      .firestore()
+      .collection('activity')
+      .add(activity)
+      .then(docRef => {
+        return console.log('Activity created with ID ', docRef.id);
+      })
+      .catch(err => {
+        return console.log('Error adding activity', err);
+      });
+  }); 

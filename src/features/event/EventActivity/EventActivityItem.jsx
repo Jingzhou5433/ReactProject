@@ -30,9 +30,25 @@ class EventActivityItem extends Component {
               as={Link}
               to={{ pathname: '/profile/' + activity.hostUid }}
             >
-              {activity.hostedByDisplayName}
+              {activity.hostedBy}
             </Feed.User>{' '}
             has cancelled{' '}
+            <Link to={{ pathname: '/events/' + activity.eventId }}>
+              {activity.title}
+            </Link>
+          </div>
+        );
+        case 'reactivatedEvent':
+        return (
+          <div>
+            Event reactivated!{' '}
+            <Feed.User
+              as={Link}
+              to={{ pathname: '/profile/' + activity.hostUid }}
+            >
+              {activity.hostedBy}
+            </Feed.User>{' '}
+            has reactivated{' '}
             <Link to={{ pathname: '/events/' + activity.eventId }}>
               {activity.title}
             </Link>
@@ -63,5 +79,6 @@ class EventActivityItem extends Component {
     );
   }
 }
+
 
 export default EventActivityItem;

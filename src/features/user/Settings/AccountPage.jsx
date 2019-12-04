@@ -34,6 +34,7 @@ const AccountPage = ({
   providerId
 }) => {
   return (
+    //1
     <Segment>
       <Header dividing size='large' content='Account' />
       {providerId && providerId === 'password' && (
@@ -61,12 +62,14 @@ const AccountPage = ({
               component={TextInput}
               placeholder='Confirm Password'
             />
+            
             {error && (
               <Label basic color='red'>
                 {error}
               </Label>
             )}
             <Divider />
+
             <Button
               disabled={invalid || submitting}
               size='large'
@@ -76,6 +79,7 @@ const AccountPage = ({
           </Form>
         </div>
       )}
+        
 
       {providerId && providerId === 'facebook.com' && (
         <div>
