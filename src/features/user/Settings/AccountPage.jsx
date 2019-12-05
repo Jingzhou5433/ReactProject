@@ -80,15 +80,19 @@ const AccountPage = ({
         </div>
       )}
         
+      
+
 
       {providerId && providerId === 'facebook.com' && (
         <div>
           <Header color='teal' sub content='Facebook Account' />
           <p>Please visit Facebook to update your account settings</p>
-          <Button type='button' color='facebook'>
-            <Icon name='facebook' />
+          <a href="https://www.facebook.com">
+          <Button type='button' color='facebook' >  
+            <Icon name='facebook' />  
             Go to Facebook
           </Button>
+          </a>
         </div>
       )}
 
@@ -96,10 +100,12 @@ const AccountPage = ({
         <div>
           <Header color='teal' sub content='Google Account' />
           <p>Please visit Google to update your account settings</p>
+          <a href="https://mail.google.com">
           <Button type='button' color='google plus'>
             <Icon name='google plus' />
             Go to Google
           </Button>
+          </a>
         </div>
       )}
     </Segment>
